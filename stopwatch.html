@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://kit.fontawesome.com/3c244be8d1.js" crossorigin="anonymous"></script>
+<title></title>
+
+<style type="text/css">
+
+#main
+{
+
+height:100%;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+position:fixed;
+inset:0px;
+background-color:#121212;
+}
+
+section
+ {
+ border:1px solid #00ffff;
+ border-radius:5px;
+ width:200px;
+height:150px;
+display:flex;
+flex-direction:row;
+align-items:center;
+justify-content:center;
+box-shadow:1px 2px 15px #000000;
+background-color:#000000;
+}
+
+
+h1
+{
+font-size:45px;
+color:#00ffff;
+text-shadow:1px 0px 10px grey;
+}
+
+#sec
+{
+font-size:55px;
+transition:font-size 1s ease;
+
+}
+
+#min
+{
+display:none;
+transition:display 1s ease;
+
+}
+#hr
+{
+display:none;
+transition:display 1s ease;
+}
+#milsec
+{
+font-size:15px;
+font-family:monospace;
+color:#ff5f1f;
+}
+
+
+
+
+span 
+{
+border:1px solid #ff5f1f;
+border-radius:50%;
+width:60px;
+height:60px;
+display:flex;
+flex-direction:row;
+align-items:center;
+justify-content:center;
+box-shadow:1px 2px 15px #000000;
+margin:5px;
+background-color:#000000;
+
+
+}
+#link
+{
+
+
+width:0.5px;
+border-left:1px solid #00ffff;
+border-right:1px solid #ff5f1f;
+height:200px;
+margin:0px;
+opacity:0.5;
+box-shadow:1px 2px 15px #000000;
+}
+
+#butcont
+{
+border:1px solid #00ffff;
+border-bottom:1px solid #ff5f1f;
+border-right: 1px solid #ff5f1f;
+ 
+border-radius:5px;
+width:80%;
+height:60px;
+display:flex;
+flex-direction:row;
+align-items:center;
+justify-content:space-evenly;
+box-shadow:1px 2px 15px #000000;
+background-color:#000000;
+}
+
+#res
+{
+height:60px;
+width:70px;
+border:none;
+background-color:transparent;
+color:#f1f1f1;
+font-size:20px;
+transition:color 1s ease, transition 1s ease;
+
+}
+#res:hover 
+{
+
+
+color:#ff5f1f;
+
+}
+
+#pap
+{
+height:60px;
+width:70px;
+border:none;
+background-color:transparent;
+font-size:20px;
+transition:all 1s ease;
+}
+
+
+@media screen and (max-width: 992px) and (min-width: 601px)
+{
+#butcont
+{
+border:1px solid #00ffff;
+border-bottom:1px solid #ff5f1f;
+border-right: 1px solid #ff5f1f;
+ 
+border-radius:5px;
+width:50%;
+height:60px;
+display:flex;
+flex-direction:row;
+align-items:center;
+justify-content:space-evenly;
+box-shadow:1px 2px 15px #000000;
+background-color:#000000;
+   
+}
+    
+}
+@media screen and (min-width: 992px)
+{
+#butcont
+{
+border:1px solid #00ffff;
+border-bottom:1px solid #ff5f1f;
+border-right: 1px solid #ff5f1f;
+ 
+border-radius:5px;
+width:40%;
+height:60px;
+display:flex;
+flex-direction:row;
+align-items:center;
+justify-content:space-evenly;
+box-shadow:1px 2px 15px #000000;
+background-color:#000000;
+   
+}
+    
+}
+
+</style>
+
+</head>
+
+
+
+
+<body>
+<div id="main">
+<section>
+<h1 id ="hr">00</h1>
+<h1 id ="min">00</h1>
+<h1 id="sec">00</h1>
+</section>
+<span>
+
+<h1 id="milsec">00</h1>
+</span>
+<div id="link"></div>
+<div id="butcont">
+<button onclick="reset()" id="res">
+<i class="fa-solid fa-arrows-rotate"></i></button>
+<button onclick="play()" id="pap">
+<i class="fa-solid fa-play" style="color:#00ffff;"></i></button>
+</div>
+
+</div>
+<script type="text/javascript">
+
+const min = document.getElementById("min")
+const milsec = document.getElementById("milsec")
+const sec = document.getElementById("sec")
+const hour = document.getElementById("hr")
+const pap = document.getElementById("pap")
+var seconds = 0
+var minutes = 0 
+var milli = 0
+var hr = 0
+var num = 0
+let resume;
+
+function watch(){
+milli = milli + 1
+
+if(seconds < 10){
+sec.innerHTML = "0" + seconds
+}else{
+sec.innerHTML =  seconds
+
+}
+
+if(minutes < 10){
+min.innerHTML = "0" + minutes + ":"
+}else{
+min.innerHTML =  minutes + ":"
+
+}
+if(hr < 10){
+hour.innerHTML = "0" + hr + ":"
+}else{
+hour.innerHTML =  hr + ":"
+
+}
+milsec.innerHTML = milli
+
+
+
+
+
+
+if(milli == 10)
+{
+seconds = seconds + 1
+milli = 0
+}
+
+if(seconds == 60){
+sec.style.fontSize = "45px"
+min.style.display = "flex"
+minutes = minutes + 1
+seconds = 0
+
+
+}
+
+if(minutes == 60){
+sec.style.fontSize = "45px"
+hour.style.display = "flex"
+hr = hr+ 1
+
+
+
+}
+
+}
+
+
+
+function play()
+{
+
+if(num == 0){
+resume = 
+setInterval(watch , 100); 
+num = 1
+pap.innerHTML = "<i class='fa-solid fa-pause' style='color:#ff5f1f'></i>"
+}else if(num == 1)
+{
+clearInterval(resume)
+num = 0
+pap.innerHTML = "<i class='fa-solid fa-play' style='color:#00ffff;'></i>"
+}
+}
+
+function reset()
+{
+seconds = 0
+minutes = 0 
+milli = 0
+ hr = 0
+sec.style.fontSize = "55px"
+hour.style.display = "none"
+min.style.display = "none"
+sec.innerHTML =  "00"
+min.innerHTML =  "0"
+milsec.innerHTML =  "00"
+hour.innerHTML =  "0"
+clearInterval(resume)
+num = 0
+pap.innerHTML = "<i class='fa-solid fa-play' style='color:#00ffff;'></i>"
+}
+
+</script>
+</body>
+</html>
